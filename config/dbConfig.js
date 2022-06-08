@@ -1,9 +1,22 @@
-const { default: mongoose } = require('mongoose');
+import mongoose from 'mongoose';
 
-const DBConnection = mongoose.createConnection('mongodb+srv://mdenyse:Denx@2020@cluster0.wobsa.mongodb.net/?retryWrites=true&w=majority').then(() => {
-    console.log('DB Connected');
-}).catch(err => {
-    console.log(err.message);
-})
 
-export default DBConnection;
+
+const connectToDb = async() => {
+    const url = await process.env.MONGO_URI;
+    try {
+        const connection = await mongoose.connect(
+            url, {
+                useNewUrlParser: true,
+                useUnifiedTopology: true
+            }) 
+            console.log(`MongoDb connected ${connection.connection.host}`)
+    }
+    catch (e) {
+        console.log(e.message)
+    }
+
+}
+
+
+export default connectToDb;

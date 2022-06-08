@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { GenderEnum, RoleEnum } from '../enums/enums';
+import { GenderEnum, RoleEnum } from '../enums/enums.js';
 
 mongoose.Promise = global.Promise;
 
@@ -24,13 +24,17 @@ const userSchema = new mongoose.Schema({
         maxlength: 40
     },
     gender: {
-        type: GenderEnum,
+        type: String,
+        enum: ['female', 'male'],
         required: true
     },
     role: {
-        default: RoleEnum,
-        type: RoleEnum
+        default: 'Standard',
+        type: String,
+        enum: ['Standard', 'Candidate', 'Admin']
     }
 });
 
-export default mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema);
+export default User;
+
