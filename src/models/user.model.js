@@ -29,8 +29,7 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         default: RoleEnum,
-        type: RoleEnum,
-        required: true
+        type: RoleEnum
     }
 });
 
