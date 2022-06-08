@@ -38,6 +38,11 @@ const updateUser = async (req, res) => {
     const filter = {
         _id: req.params.id
     }
+    const existingUser = await User.findById(req.params.id);
+    if (!existingUser) {
+        return res.status(404).json({message: 'User with id not found'});
+    }
+
     return await User.findOneAndUpdate(filter, {
         name: req.body.name,
         email: req.body.email,
@@ -56,9 +61,28 @@ const updateUser = async (req, res) => {
         })
     });;
 }
-
+const deleteUser = async (req, res) => {
+    const filter = {
+        _id: req.params.id
+    }
+    const existingUser = await User.findById(req.params.id);
+    if (!existingUser) {
+        return res.status(404).json({message: 'User with id not found'});
+    }
+    return User.findByIdAndDelete(filter).then(() => {
+        res.status(200).json({
+            message: 'User deleted successfully'
+        })
+    }).catch((err) => {
+        res.status(400).json({
+            message: 'Error deleting user',
+            error: err.message
+    });
+});
+}
 export {
     createUser,
     getUsers,
-    updateUser
+    updateUser,
+    deleteUser
 }
