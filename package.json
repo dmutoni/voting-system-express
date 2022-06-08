@@ -1,0 +1,16 @@
+{
+  "name": "voting-system-express",
+  "version": "1.0.0",
+  "description": "A voting system project",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "author": "denyse",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.1",
+    "mongoose": "^6.3.6",
+    "morgan": "^1.10.0"
+  }
+}
