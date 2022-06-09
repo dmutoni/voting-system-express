@@ -41,6 +41,7 @@ userSchema.methods.generateAuthToken = async function () {
         name: this.name,
         email: this.email,
         gender: this.gender,
+        role: this.role,
     }, process.env.TOKEN_SECRET )
 }
 const User = mongoose.model('User', userSchema);

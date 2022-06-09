@@ -1,16 +1,29 @@
 import express from 'express';
-const router = express.Router();
+const router = express.Router({
+    mergeParams: true
+});
 
-import { createUser, getUsers, updateUser, deleteUser, findById } from '../controllers/user.controller.js'
+import {
+    protect,
+    authorize
+} from '../middlewares/auth.middleware.js';
 
-router.post('/', createUser);
+import {
+    createUser,
+    getUsers,
+    updateUser,
+    deleteUser,
+    findById
+} from '../controllers/user.controller.js'
 
-router.get('/', getUsers);
+router.post("/", [protect, authorize('Standard')],createUser);
 
-router.get('/:id', findById);
+router.route('/').get(getUsers);
 
-router.put('/:id', updateUser);
+router.route('/:id').get(findById);
 
-router.delete('/:id', deleteUser);
+router.route('/:id').put(updateUser);
+
+router.route('/:id').delete(deleteUser);
 
 export default router;

@@ -4,39 +4,40 @@ import schema from '../utils/validation.utils.js';
 import bcrypt from 'bcryptjs';
 
 const createUser = async (req, res) => {
-    const {
-        error
-    } = schema.validate(req.body);
-    if (error) return res.status(400).json({
-        message: error.details[0].message,
-        success: false
-    })
-    const oldUser = await User.findOne({
-        email: req.body.email
-    });
-    if (oldUser) return res.status(400).json({
-        success: false,
-        message: 'User already exists'
-    });
-    const hashedPassword = await hashPassword(req.body.password);
-    const user = await new User({
-        name: req.body.name,
-        email: req.body.email,
-        password: hashedPassword,
-        gender: req.body.gender
-    });
-    return await user.save().then(() => {
-        res.status(201).json({
+    try {
+        const {
+            error
+        } = schema.validate(req.body);
+        if (error) return res.status(400).json({
+            message: error.details[0].message,
+            success: false
+        })
+        const oldUser = await User.findOne({
+            email: req.body.email
+        });
+        if (oldUser) return res.status(400).json({
+            success: false,
+            message: 'User already exists'
+        });
+        const hashedPassword = await hashPassword(req.body.password);
+        const user = await new User({
+            name: req.body.name,
+            email: req.body.email,
+            password: hashedPassword,
+            gender: req.body.gender
+        });
+        const savedUser = await user.save();
+        if (savedUser) return res.status(201).json({
             success: true,
             message: 'User registered successfully',
-            data: user
+            data: savedUser
         })
-    }).catch((err) => {
-        res.status(400).json({
+    } catch (err) {
+        return res.status(400).json({
             message: 'Error registering user',
             error: err.message
         })
-    })
+    };
 }
 
 const login = async (req, res) => {
@@ -58,7 +59,7 @@ const login = async (req, res) => {
             status: false
         });
         return res.status(200).json({
-             token: await user.generateAuthToken()
+            token: await user.generateAuthToken()
         });
     } catch (error) {
         return res.status(400).json({
