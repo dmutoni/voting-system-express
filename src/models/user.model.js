@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
-import { GenderEnum, RoleEnum } from '../enums/enums.js';
-
+import jwt from 'jsonwebtoken';
 mongoose.Promise = global.Promise;
 
 const userSchema = new mongoose.Schema({
@@ -36,6 +35,15 @@ const userSchema = new mongoose.Schema({
     }
 });
 
+userSchema.methods.generateAuthToken = async function () {
+    return await jwt.sign( {
+        id: this._id,
+        name: this.name,
+        email: this.email,
+        gender: this.gender,
+    }, process.env.TOKEN_SECRET )
+}
 const User = mongoose.model('User', userSchema);
+
 export default User;
 

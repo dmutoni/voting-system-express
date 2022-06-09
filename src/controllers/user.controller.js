@@ -1,6 +1,7 @@
 import User from '../models/user.model.js';
 import hashPassword from '../utils/hashPassword.js';
 import schema from '../utils/validation.utils.js';
+import bcrypt from 'bcryptjs';
 
 const createUser = async (req, res) => {
     const {
@@ -36,6 +37,35 @@ const createUser = async (req, res) => {
             error: err.message
         })
     })
+}
+
+const login = async (req, res) => {
+    try {
+        if (!req.body.email || !req.body.password) return res.status(401).json({
+            message: 'Email or password should exist',
+            status: false
+        });
+        const user = await User.findOne({
+            email: req.body.email
+        });
+        if (!user) return res.status(401).json({
+            message: 'Invalid credentials',
+            status: false
+        });
+        const matchedPassword = await bcrypt.compare(req.body.password, user.password);
+        if (!matchedPassword) return res.status(401).json({
+            message: 'Invalid credentials',
+            status: false
+        });
+        return res.status(200).json({
+             token: await user.generateAuthToken()
+        });
+    } catch (error) {
+        return res.status(400).json({
+            message: 'Error occurred',
+            error: error.message
+        })
+    }
 }
 
 const getUsers = async (req, res) => {
@@ -143,5 +173,6 @@ export {
     getUsers,
     updateUser,
     deleteUser,
-    findById
+    findById,
+    login
 }

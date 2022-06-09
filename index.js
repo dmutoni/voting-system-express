@@ -4,6 +4,7 @@ import logger from 'morgan';
 import router from './src/routers/user.routes.js';
 import connectToDb from './config/dbConfig.js';
 import dotenv from 'dotenv';
+import authRoute from './src/routers/auth.routes.js';
 
 const app = express();
 
@@ -19,6 +20,8 @@ app.get('/', (req, res) => {
     return res.status(200).json({message: 'Welcome to the voting system api'});
 })
 app.use('/api/v1/users', router);
+app.use('/api/v1/auth', authRoute);
+
 const port = 5050;
 
 app.listen(port, () => {
