@@ -2,8 +2,20 @@ import User from '../models/user.model.js';
 import schema from '../utils/validation.utils.js';
 
 const createUser = async (req, res) => {
-    const {error} = schema.validate(req.body);
-    if (error) return res.status(400).json({message: error.details[0].message, success: false})
+    const {
+        error
+    } = schema.validate(req.body);
+    if (error) return res.status(400).json({
+        message: error.details[0].message,
+        success: false
+    })
+    const oldUser = await User.findOne({
+        email: req.body.email
+    });
+    if (oldUser) return res.status(400).json({
+        success: false,
+        message: 'User already exists'
+    });
     const user = new User({
         name: req.body.name,
         email: req.body.email,
@@ -43,7 +55,10 @@ const updateUser = async (req, res) => {
     }
     const user = await userExists(req.params.id);
     if (!user) {
-        return res.status(404).json({message: 'user does not exist', success: false});
+        return res.status(404).json({
+            message: 'user does not exist',
+            success: false
+        });
     }
 
     return await User.findOneAndUpdate(filter, {
@@ -76,7 +91,10 @@ const userExists = async (id) => {
 const findById = async (req, res) => {
     const user = await userExists(req.params.id);
     if (!user) {
-        return res.status(404).json({message: 'user does not exist', success: false});
+        return res.status(404).json({
+            message: 'user does not exist',
+            success: false
+        });
     }
     return await User.findById(req.params.id).then((user) => {
         res.status(200).json({
