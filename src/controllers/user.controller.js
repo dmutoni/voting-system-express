@@ -1,4 +1,5 @@
 import User from '../models/user.model.js';
+import hashPassword from '../utils/hashPassword.js';
 import schema from '../utils/validation.utils.js';
 
 const createUser = async (req, res) => {
@@ -16,14 +17,16 @@ const createUser = async (req, res) => {
         success: false,
         message: 'User already exists'
     });
-    const user = new User({
+    const hashedPassword = await hashPassword(req.body.password);
+    const user = await new User({
         name: req.body.name,
         email: req.body.email,
-        password: req.body.password,
+        password: hashedPassword,
         gender: req.body.gender
     });
     return await user.save().then(() => {
         res.status(201).json({
+            success: true,
             message: 'User registered successfully',
             data: user
         })
@@ -38,6 +41,7 @@ const createUser = async (req, res) => {
 const getUsers = async (req, res) => {
     return await User.find().then((users) => {
         res.status(200).json({
+            success: true,
             message: 'Users retrieved successfully',
             data: users
         })
@@ -69,6 +73,7 @@ const updateUser = async (req, res) => {
         new: true
     }).then((users) => {
         res.status(200).json({
+            success: true,
             message: 'Users updated successfully',
             data: users
         })
@@ -117,11 +122,13 @@ const deleteUser = async (req, res) => {
     const existingUser = await User.findById(req.params.id);
     if (!existingUser) {
         return res.status(404).json({
+            success: false,
             message: 'User with id not found'
         });
     }
     return await User.findByIdAndDelete(filter).then(() => {
         res.status(200).json({
+            success: true,
             message: 'User deleted successfully'
         })
     }).catch((err) => {
