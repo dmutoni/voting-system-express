@@ -1,6 +1,7 @@
 import User from '../models/user.model.js';
 
 const createUser = async (req, res) => {
+    
     const user = new User({
         name: req.body.name,
         email: req.body.email,
@@ -38,9 +39,9 @@ const updateUser = async (req, res) => {
     const filter = {
         _id: req.params.id
     }
-    const existingUser = await User.findById(req.params.id);
-    if (!existingUser) {
-        return res.status(404).json({message: 'User with id not found'});
+    const user = await userExists(req.params.id);
+    if (!user) {
+        return res.status(404).json({message: 'user does not exist', success: false});
     }
 
     return await User.findOneAndUpdate(filter, {
@@ -61,15 +62,45 @@ const updateUser = async (req, res) => {
         })
     });;
 }
+
+const userExists = async (id) => {
+    const user = await User.findById(id);
+    if (!userExists) {
+        return false;
+    }
+    return user;
+}
+
+const findById = async (req, res) => {
+    const user = await userExists(req.params.id);
+    if (!user) {
+        return res.status(404).json({message: 'user does not exist', success: false});
+    }
+    return await User.findById(req.params.id).then((user) => {
+        res.status(200).json({
+            message: 'User retrieved successfully',
+            data: user
+        })
+    }).catch((err) => {
+        res.status(404).json({
+            message: 'User not found',
+            error: err.message
+        })
+
+    })
+}
+
 const deleteUser = async (req, res) => {
     const filter = {
         _id: req.params.id
     }
     const existingUser = await User.findById(req.params.id);
     if (!existingUser) {
-        return res.status(404).json({message: 'User with id not found'});
+        return res.status(404).json({
+            message: 'User with id not found'
+        });
     }
-    return User.findByIdAndDelete(filter).then(() => {
+    return await User.findByIdAndDelete(filter).then(() => {
         res.status(200).json({
             message: 'User deleted successfully'
         })
@@ -77,12 +108,13 @@ const deleteUser = async (req, res) => {
         res.status(400).json({
             message: 'Error deleting user',
             error: err.message
+        });
     });
-});
 }
 export {
     createUser,
     getUsers,
     updateUser,
-    deleteUser
+    deleteUser,
+    findById
 }
