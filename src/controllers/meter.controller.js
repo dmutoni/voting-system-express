@@ -1,6 +1,6 @@
-import Token from '../models/token.model';
+import Token from '../models/token.model.js';
 
-const getToken = (req, res) => {
+const getToken = async (req, res) => {
     try {
         const validMoney = validateMoney(req.body.money);
         if (!validMoney) {
@@ -58,3 +58,5 @@ const assignRemainingDaysAccordingToMoney = (money) => {
     const days = money / 100;
     return days;
 }
+
+export { getToken };

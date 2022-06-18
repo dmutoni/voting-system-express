@@ -5,6 +5,7 @@ import router from './src/routers/user.routes.js';
 import connectToDb from './config/dbConfig.js';
 import dotenv from 'dotenv';
 import authRoute from './src/routers/auth.routes.js';
+import meterRoute from './src/routers/meter.route.js';
 
 const app = express();
 
@@ -21,7 +22,7 @@ app.get('/', (req, res) => {
 })
 app.use('/api/v1/users', router);
 app.use('/api/v1/auth', authRoute);
-
+app.use('/api/v1/meters', meterRoute);
 const port = 5050;
 
 app.listen(port, () => {

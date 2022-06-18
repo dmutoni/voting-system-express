@@ -1,20 +1,21 @@
-import { boolean } from 'joi';
-import mongoose, { mongo } from 'mongoose';
+
+
+import mongoose from 'mongoose';
 
 mongoose.Promise = global.Promise;
 
 const tokenSchema = new mongoose.Schema({
     id: mongoose.Schema.Types.ObjectId,
     token: {
-        type: number,
+        type: Number,
         required: true,
         minlength: 8,
         maxlength: 8,
     },
-    lastActiveDate: number,
+    lastActiveDate: Number,
     status: {
         default: 'active',
-        type: boolean,
+        type: Boolean,
         enum: ['active', 'inactive']
     }
 });
