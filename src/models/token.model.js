@@ -1,5 +1,3 @@
-
-
 import mongoose from 'mongoose';
 
 mongoose.Promise = global.Promise;
@@ -14,10 +12,17 @@ const tokenSchema = new mongoose.Schema({
     },
     lastActiveDate: Number,
     status: {
-        default: 'active',
-        type: Boolean,
-        enum: ['active', 'inactive']
+        default: 'ACTIVE',
+        type: String,
+        enum: ['ACTIVE', 'INACTIVE']
+    },
+    meterNumber: {
+        type: Number,
+        required: true,
+        minlength: 6,
+        maxlength: 50
     }
+
 });
 
 const Token = mongoose.model('Token', tokenSchema);

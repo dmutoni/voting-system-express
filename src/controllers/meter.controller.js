@@ -20,8 +20,10 @@ const getToken = async (req, res) => {
         const token = generateRandomToken();
         const days = assignRemainingDaysAccordingToMoney(req.body.money);
 
+        
         const newToken = await Token.create({
             token: token,
+            meterNumber: req.body.meterNumber,
             lastActiveDate: days
         });
         const savedToken = await newToken.save();
