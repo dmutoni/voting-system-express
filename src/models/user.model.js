@@ -28,6 +28,10 @@ const userSchema = new mongoose.Schema({
         enum: ['female', 'male'],
         required: true
     },
+    votes: {
+        type: Number,
+        required: true
+    },
     role: {
         default: 'Standard',
         type: String,

@@ -24,7 +24,8 @@ const createUser = async (req, res) => {
             name: req.body.name,
             email: req.body.email,
             password: hashedPassword,
-            gender: req.body.gender
+            gender: req.body.gender,
+            votes: 0,
         });
         const savedUser = await user.save();
         if (savedUser) return res.status(201).json({
@@ -82,6 +83,32 @@ const getUsers = async (req, res) => {
             error: err.message
         })
     });
+}
+
+const vote = async (req, res) => { 
+    try {
+        const user = await User.findOne({
+            _id: req.params.id
+        });
+        if (!user) return res.status(400).json({
+            message: 'User not found',
+            success: false
+        });
+        user.votes = user.votes + 1;
+        console.log(user);
+        const savedUser = await user.save();
+        if (savedUser) return res.status(200).json({
+            success: true,
+            message: 'User voted successfully',
+            data: savedUser
+        })
+    } 
+    catch (err) {
+        return res.status(400).json({
+            message: 'Error occurred',
+            error: err.message
+        })
+    }
 }
 
 const updateUser = async (req, res) => {
@@ -175,5 +202,6 @@ export {
     updateUser,
     deleteUser,
     findById,
-    login
+    login,
+    vote
 }

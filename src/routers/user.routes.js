@@ -13,12 +13,15 @@ import {
     getUsers,
     updateUser,
     deleteUser,
-    findById
+    findById,
+    vote
 } from '../controllers/user.controller.js'
 
 router.post("/", [protect, authorize('Standard')],createUser);
 
 router.route('/').get(getUsers);
+
+router.route('/:id').post(vote);
 
 router.route('/:id').get(findById);
 

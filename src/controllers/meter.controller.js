@@ -34,7 +34,6 @@ const getToken = async (req, res) => {
                 data: savedToken
             })
         }
-        const saveMeter = await Meter.create({meterNumber: req.body.meterNumber});
     } catch (err) {
         return res.status(400).json({
             message: 'Error occurred',
