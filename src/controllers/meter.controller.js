@@ -1,4 +1,5 @@
 import Token from '../models/token.model.js';
+import { meterValidation } from '../utils/validation.utils.js';
 
 const getToken = async (req, res) => {
     try {
@@ -9,12 +10,13 @@ const getToken = async (req, res) => {
                 success: false
             });
         }
-        if (req.body.meterNumber.length != 6) {
-            return res.status(400).json({
-                message: 'Meter is invalid',
-                success: false
-            });
-        }
+        const {
+            error
+        } = meterValidation.validate({meterNumber: req.body.meterNumber.toString(), money: req.body.money});
+        if (error) return res.status(400).json({
+            message: error.details[0].message,
+            success: false
+        });
         const token = generateRandomToken();
         const days = assignRemainingDaysAccordingToMoney(req.body.money);
 
@@ -43,7 +45,7 @@ const validateMoney = (money) => {
         return false;
     } else if (money % 100 != 0) {
         return false;
-    } else if (money > 182, 500) {
+    } else if (money > 182500) {
         return false;
     }
     return true;

@@ -1,6 +1,6 @@
 import User from '../models/user.model.js';
 import hashPassword from '../utils/hashPassword.js';
-import schema from '../utils/validation.utils.js';
+import {schema} from '../utils/validation.utils.js';
 import bcrypt from 'bcryptjs';
 
 const createUser = async (req, res) => {

@@ -3,6 +3,6 @@ const meterRoute = express.Router();
 
 import { getToken } from '../controllers/meter.controller.js';
 
-meterRoute.get('/', getToken);
+meterRoute.post('/', getToken);
 
 export default meterRoute;

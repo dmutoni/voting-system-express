@@ -12,4 +12,12 @@ const schema = Joi.object({
     }).required(),
     gender: Joi.string().valid('female', 'male')
 })
-export default schema;
+
+const meterValidation = Joi.object({
+    meterNumber: Joi.string().min(6).max(6).required(),
+    money: Joi.number().required()
+})
+export {
+    schema,
+    meterValidation
+};
