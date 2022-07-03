@@ -301,25 +301,38 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "object"
+            "type": "string",
+            "example": "507f1f77bcf86cd799439011",
+            "required": true
           },
           "name": {
-            "type": "object"
+            "type": "string",
+            "example": "string"
           },
           "email": {
-            "type": "object"
+            "type": "string",
+            "example": "string"
           },
           "password": {
-            "type": "object"
+            "type": "string",
+            "example": "string"
           },
           "gender": {
-            "type": "object"
+            "type": "string",
+            "example": "string"
           },
           "votes": {
-            "type": "object"
+            "type": "number",
+            "example": 0
           },
           "role": {
-            "type": "object"
+            "type": "string",
+            "example": "string"
+          },
+          "_id": {
+            "type": "string",
+            "example": "507f1f77bcf86cd799439011",
+            "required": true
           }
         }
       },
@@ -327,19 +340,57 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "object"
+            "type": "string",
+            "example": "507f1f77bcf86cd799439011",
+            "required": true
           },
           "token": {
-            "type": "object"
+            "type": "number",
+            "example": 0
           },
           "lastActiveDate": {
-            "type": "object"
+            "type": "number",
+            "example": 0
           },
           "status": {
-            "type": "object"
+            "type": "string",
+            "example": "string"
           },
           "meterNumber": {
-            "type": "object"
+            "type": "number",
+            "example": 0
+          },
+          "_id": {
+            "type": "string",
+            "example": "507f1f77bcf86cd799439011",
+            "required": true
+          },
+          "__v": {
+            "type": "number",
+            "example": 0
+          }
+        }
+      },
+      "Meter": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "507f1f77bcf86cd799439011",
+            "required": true
+          },
+          "meterNumber": {
+            "type": "number",
+            "example": 0
+          },
+          "_id": {
+            "type": "string",
+            "example": "507f1f77bcf86cd799439011",
+            "required": true
+          },
+          "__v": {
+            "type": "number",
+            "example": 0
           }
         }
       }

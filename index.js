@@ -8,7 +8,7 @@ import authRoute from './src/routers/auth.routes.js';
 import meterRoute from './src/routers/meter.route.js';
 import { Swaggiffy } from 'swaggiffy';
 const app = express();
-
+import './src/models/meter.model.js';
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(logger('dev'));

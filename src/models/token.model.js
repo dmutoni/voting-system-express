@@ -28,5 +28,5 @@ const schema = {
 const tokenSchema = new mongoose.Schema(schema);
 
 const Token = mongoose.model('Token', tokenSchema);
-registerSchema('Token', schema);
+registerSchema('Token', tokenSchema, {orm: 'mongoose'});
 export default Token;
