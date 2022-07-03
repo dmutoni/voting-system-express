@@ -20,7 +20,7 @@ const createUser = async (req, res) => {
             message: 'User already exists'
         });
         const hashedPassword = await hashPassword(req.body.password);
-        const user = await new User({
+        const user = new User({
             name: req.body.name,
             email: req.body.email,
             password: hashedPassword,
