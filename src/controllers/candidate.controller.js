@@ -1,4 +1,4 @@
-import Candidate from "../models/candidate.model";
+import Candidate from "../models/candidate.model.js";
 
 const saveCandidate = async (req,res) => {
     try {
@@ -6,7 +6,7 @@ const saveCandidate = async (req,res) => {
             candidateName: req.body.candidateName,
             partyName: req.body.partyName,
             profileUrl: req.body.profileUrl,
-            votes: req.body.votes,
+            votes: 0,
             postTitle: req.body.postTitle,
             postDescription: req.body.postDescription,
         });

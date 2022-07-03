@@ -1,8 +1,3 @@
-import express from 'express';
-const router = express.Router({
-    mergeParams: true
-});
-
 import {
     protect,
     authorize
@@ -17,6 +12,12 @@ import {
     vote
 } from '../controllers/user.controller.js'
 import { registerDefinition } from 'swaggiffy';
+
+import express from 'express';
+
+const router = express.Router({
+    mergeParams: true
+});
 
 router.post("/", [protect, authorize('Standard')],createUser);
 

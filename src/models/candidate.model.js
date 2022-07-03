@@ -18,7 +18,7 @@ const candidateSchema = new mongoose.Schema({
         required: true
     },
     votes: {
-        type: String,
+        type: Number,
         required: true
     },
     postTitle: {
@@ -31,6 +31,6 @@ const candidateSchema = new mongoose.Schema({
     },
 });
 
-const Candidate = mongoose.model('Token', candidateSchema);
-registerSchema('Token', candidateSchema, {orm: 'mongoose'});
+const Candidate = mongoose.model('Candidate', candidateSchema);
+registerSchema('Candidate', candidateSchema, {orm: 'mongoose'});
 export default Candidate;

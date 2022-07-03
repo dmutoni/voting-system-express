@@ -9,6 +9,7 @@ import meterRoute from './src/routers/meter.route.js';
 import { Swaggiffy } from 'swaggiffy';
 const app = express();
 import './src/models/meter.model.js';
+import candidateRouter from './src/routers/candidate.routes.js';
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(logger('dev'));
@@ -23,6 +24,8 @@ app.get('/', (req, res) => {
 app.use('/api/v1/users', router);
 app.use('/api/v1/auth', authRoute);
 app.use('/api/v1/meters', meterRoute);
+app.use('/api/v1/candidate', candidateRouter);
+
 const port = 5050;
 
 app.listen(port, () => {
