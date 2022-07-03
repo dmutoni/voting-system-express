@@ -6,7 +6,7 @@ import connectToDb from './config/dbConfig.js';
 import dotenv from 'dotenv';
 import authRoute from './src/routers/auth.routes.js';
 import meterRoute from './src/routers/meter.route.js';
-
+import { Swaggiffy } from 'swaggiffy';
 const app = express();
 
 app.use(bodyParser.json());
@@ -28,3 +28,5 @@ const port = 5050;
 app.listen(port, () => {
     console.log(`Our server is running on port  $port`);
 });
+
+new Swaggiffy().setupExpress(app).swaggiffy()

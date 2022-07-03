@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { registerSchema } from 'swaggiffy';
 
 mongoose = global.Promise;
 
@@ -13,5 +14,5 @@ const meterSchema = new mongoose.Schema({
 });
 
 const Meter = mongoose.model('Meter', meterSchema);
-
+registerSchema('Meter', meterSchema);
 export default Meter;

@@ -1,8 +1,9 @@
 import mongoose from 'mongoose';
+import { registerSchema } from 'swaggiffy';
 
 mongoose.Promise = global.Promise;
 
-const tokenSchema = new mongoose.Schema({
+const schema = {
     id: mongoose.Schema.Types.ObjectId,
     token: {
         type: Number,
@@ -23,7 +24,9 @@ const tokenSchema = new mongoose.Schema({
         maxlength: 50
     }
 
-});
+}
+const tokenSchema = new mongoose.Schema(schema);
 
 const Token = mongoose.model('Token', tokenSchema);
+registerSchema('Token', schema);
 export default Token;

@@ -4,7 +4,7 @@
   "description": "A voting system project",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node index.js",
     "test": "npm test"
   },
   "author": "denyse",
@@ -18,7 +18,8 @@
     "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.6",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "swaggiffy": "^1.0.3"
   },
   "type": "module"
 }

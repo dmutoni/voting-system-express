@@ -1,8 +1,10 @@
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
+import { registerDefinition, registerSchema } from 'swaggiffy';
 mongoose.Promise = global.Promise;
 
-const userSchema = new mongoose.Schema({
+
+const obj = {
     id: mongoose.Schema.Types.ObjectId,
     name: {
         type: String,
@@ -37,7 +39,8 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ['Standard', 'Candidate', 'Admin']
     }
-});
+}
+const userSchema = new mongoose.Schema(obj);
 
 userSchema.methods.generateAuthToken = async function () {
     return await jwt.sign( {
@@ -48,6 +51,7 @@ userSchema.methods.generateAuthToken = async function () {
         role: this.role,
     }, process.env.TOKEN_SECRET )
 }
+registerSchema('User', obj)
 const User = mongoose.model('User', userSchema);
 
 export default User;
