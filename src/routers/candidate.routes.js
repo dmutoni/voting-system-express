@@ -20,6 +20,6 @@ candidateRouter.route('/party/:id').get(getCandidateByParty);
 
 candidateRouter.route('/:id').delete(deleteCandidate);
 
-registerDefinition(candidateRouter, {tags: 'Candidates', basePath: '/api/v1/candidate', mappedSchema: 'Candidate'});
+registerDefinition(candidateRouter, {tags: 'Candidates', basePath: '/api/v1/candidates', mappedSchema: 'Candidate'});
 
 export default candidateRouter;

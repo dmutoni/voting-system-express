@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
-import { registerDefinition, registerSchema } from 'swaggiffy';
+import { registerSchema } from 'swaggiffy';
 
 mongoose.Promise = global.Promise;
 

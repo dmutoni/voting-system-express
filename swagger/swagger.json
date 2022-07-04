@@ -295,7 +295,7 @@
           }
         }
       },
-      "/api/v1/candidate": {
+      "/api/v1/candidates": {
         "post": {
           "tags": [
             "Candidates"
@@ -368,7 +368,7 @@
           }
         }
       },
-      "/api/v1/candidate/{id}": {
+      "/api/v1/candidates/{id}": {
         "get": {
           "tags": [
             "Candidates"
@@ -492,7 +492,7 @@
           }
         }
       },
-      "/api/v1/candidate/vote/{id}": {
+      "/api/v1/candidates/vote/{id}": {
         "get": {
           "tags": [
             "Candidates"
@@ -538,7 +538,7 @@
           }
         }
       },
-      "/api/v1/candidate/party/{id}": {
+      "/api/v1/candidates/party/{id}": {
         "get": {
           "tags": [
             "Candidates"
@@ -580,6 +580,42 @@
                   }
                 }
               }
+            }
+          }
+        }
+      },
+      "/api/v1/votes": {
+        "post": {
+          "tags": [
+            "Votes"
+          ],
+          "summary": "",
+          "description": "",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/VotedUser"
+              }
+            }
+          ],
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "201": {
+              "description": "Created",
+              "schema": {
+                "$ref": "#/definitions/VotedUser"
+              }
+            },
+            "500": {
+              "description": "Internal Server Error"
             }
           }
         }
@@ -723,6 +759,29 @@
           "__v": {
             "type": "number",
             "example": 0
+          }
+        }
+      },
+      "VotedUser": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "507f1f77bcf86cd799439011",
+            "required": true
+          },
+          "votedUser": {
+            "type": "string",
+            "example": "string"
+          },
+          "candidate": {
+            "type": "string",
+            "example": "string"
+          },
+          "_id": {
+            "type": "string",
+            "example": "507f1f77bcf86cd799439011",
+            "required": true
           }
         }
       }

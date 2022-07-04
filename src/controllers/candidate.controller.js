@@ -147,6 +147,22 @@ const getCandidateByParty = async (req,res) => {
     }
 }
 
+const incrementVotes = async (accountId) => {
+    const account = await Account.findById(accountId);
+
+    const request = {
+        candidateName : account.candidateName,
+        partyName : account.partyName,
+        profileUrl: account.profileUrl,
+        votes: account.votes + 1,
+        postTitle: account.postTitle,
+        postDescription: account.postDescription
+    }
+
+
+    await Account.findByIdAndUpdate( {_id: accountId}, request, { new: true})
+}
+
 const getCandidateByVotes = async (req,res) => {
     try {
         const candidate = await Candidate.find({votes: req.params.votes});
@@ -188,5 +204,6 @@ export {
     deleteCandidate,
     getCandidateByPost,
     getCandidateByParty,
-    getCandidateByVotes
+    getCandidateByVotes,
+    incrementVotes,
 }
