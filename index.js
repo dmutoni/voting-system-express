@@ -7,12 +7,19 @@ import dotenv from 'dotenv';
 import authRoute from './src/routers/auth.routes.js';
 import meterRoute from './src/routers/meter.route.js';
 import { Swaggiffy } from 'swaggiffy';
-const app = express();
+import cors from 'cors';
 import './src/models/meter.model.js';
 import candidateRouter from './src/routers/candidate.routes.js';
 import voteRouter from './src/routers/vote.routes.js';
+
+const app = express();
+
 app.use(bodyParser.json());
+
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(cors());
+
 app.use(logger('dev'));
 
 dotenv.config({path: '.env'});
